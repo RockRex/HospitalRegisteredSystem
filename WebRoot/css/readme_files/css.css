@@ -1,0 +1,21 @@
+.font {
+	LINE-HEIGHT: 12pt; FONT-SIZE: 10pt
+}
+A {
+	COLOR: #003366; TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #86bd8a; TEXT-DECORATION: underline
+}
+TD {
+	LINE-HEIGHT: 12pt; FONT-VARIANT: normal; FONT-STYLE: normal; HEIGHT: 28px; FONT-SIZE: 10pt; FONT-WEIGHT: normal; TEXT-DECORATION: none
+}
+.Btn {
+	BORDER-BOTTOM: #104a7b 1px solid; BORDER-LEFT: #afc4d5 1px solid; FONT-FAMILY: ??,MS SONG,SimSun,tahoma,sans-serif; BACKGROUND: #eeeeee; COLOR: #000066; FONT-SIZE: 10pt; BORDER-TOP: #afc4d5 1px solid; CURSOR: hand; BORDER-RIGHT: #104a7b 1px solid; TEXT-DECORATION: none
+}
+.txtinput {
+	BORDER-BOTTOM: #414046 1px solid; BORDER-LEFT: #414046 1px solid; BORDER-TOP: #414046 1px solid; BORDER-RIGHT: #414046 1px solid
+}
+.pic {
+	BORDER-BOTTOM-COLOR: #000000; BORDER-TOP-COLOR: #000000; BORDER-COLLAPSE: collapse; BORDER-RIGHT-COLOR: #000000; BORDER-LEFT-COLOR: #000000
+}

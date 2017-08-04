@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.devMode" value="true" />
+	<!-- 修改s标签换行的设置 -->
+	<constant name="struts.ui.theme" value="simple"></constant>
+	<constant name="struts.ui.templateDir" value="template"></constant>
+	<constant name="struts.ui.templateSuffix" value="ftl"></constant>
+	
+	<package name="default" namespace="/" extends="struts-default">
+
+		<!-- 定义新的拦截器栈, 配置 prepare 拦截器栈的 alwaysInvokePrepare 参数值为 false -->
+		<interceptors>
+			<interceptor-stack name="sshStack">
+				<interceptor-ref name="paramsPrepareParamsStack">
+					<param name="prepare.alwaysInvokePrepare">false</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+
+		<!-- 使用新的拦截器栈 -->
+		<default-interceptor-ref name="sshStack"></default-interceptor-ref>
+		
+		<!--action  通通采用通配符的方式，分类方式面向用户-->
+		<action name="DoctorAction-*" class="DoctorAction" method="{1}">
+			<result name="home" type="redirect">/admin/adminHome.html</result>
+			<result name="error">/errorPages/error404.html</result>
+			<result name="quit" type="redirect">/admin/login.html</result>
+			<result name="yspb">/common/yspb.jsp</result>
+			<result type="stream" name="delete">
+		        <param name="contentType">text/html</param>
+		        <param name="inputName">inputStream</param>
+		    </result>
+		    <result name="list">/WEB-INF/views/YHGL/ys.jsp</result>
+		    <result name="input">/WEB-INF/views/YHGL/ysAdd.jsp</result>
+		    <result name="look">/WEB-INF/views/YHGL/ysLook.jsp</result>
+		    <result name="success" type="redirect">DoctorAction-list</result>
+		    <result name="myInf">/WEB-INF/views/My/myInf.jsp</result>
+		    <result name="mySave" type="redirectAction">DoctorAction-information</result>
+		    <result type="stream" name="regId">
+		        <param name="contentType">text/html</param>
+		        <param name="inputName">inputStream</param>
+		    </result>
+		</action>
+		
+		<action name="PatientAction-*" class="PatientAction" method="{1}">
+			<result name="index">/common/index.jsp</result>
+			<result name="welcome">/common/welcome.jsp</result>
+			<result name="quit">/common/index.jsp</result>
+			<result name="news">/common/newscenter.jsp</result>
+			<result name="hospital">/common/yyjj.jsp</result>
+			<result name="searchks">/common/searchks.jsp</result>
+			<result name="myyy">/common/myyy.jsp</result>
+			<result name="grinfo">/common/grinfo.jsp</result>
+			<result name="reg">/common/reg.jsp</result>
+			<result name="searchys">/common/searchys.jsp</result>
+			<result name="infModify" type="redirectAction">PatientAction-infShow</result>
+			<result name="searchkeshi">/common/searchkeshi.jsp</result>
+			<result name="list">/WEB-INF/views/YHGL/br.jsp</result>
+			<result name="input">/WEB-INF/views/YHGL/brAdd.jsp</result>
+			<result name="look">/WEB-INF/views/YHGL/brLook.jsp</result>
+			<result type="stream" name="delete">
+		        <param name="contentType">text/html</param>
+		        <param name="inputName">inputStream</param>
+		    </result>
+		    <result type="stream" name="order">
+		        <param name="contentType">text/html</param>
+		        <param name="inputName">inputStream</param>
+		    </result>
+		   <result type="stream" name="regId">
+		        <param name="contentType">text/html</param>
+		        <param name="inputName">inputStream</param>
+		    </result>
+		    <result name="success" type="redirectAction">PatientAction-list</result>
+		</action>
+		<action name="NoticeAction-*" class="NoticeAction" method="{1}">
+			<result name="newsx">/common/newsx.jsp</result>
+			<result name="success" type="redirectAction">NoticeAction-list</result>
+			<result name="list">/WEB-INF/views/QTGL/xw.jsp</result>
+			<result name="input">/WEB-INF/views/QTGL/xwAdd.jsp</result>
+			<result type="stream" name="delete">
+		        <param name="contentType">text/html</param>
+		        <param name="inputName">inputStream</param>
+		    </result>
+		    <result name="look">/WEB-INF/views/QTGL/xwLook.jsp</result>
+		</action>
+		<action name="AppointmentAction-*" class="AppointmentAction" method="{1}">
+			<result name="myyy">/common/myyy.jsp</result>
+			<result type="stream" name="cancel">
+		        <param name="contentType">text/html</param>
+		        <param name="inputName">inputStream</param>
+		    </result>
+		    <result type="stream" name="done">
+		        <param name="contentType">text/html</param>
+		        <param name="inputName">inputStream</param>
+		    </result>
+		    <result name="list">/WEB-INF/views/YYGL/yy.jsp</result>
+		    <result name="record">/WEB-INF/views/YYGL/yy2.jsp</result>
+		    <result name="success" type="redirectAction">AppointmentAction-list</result>
+		    <result name="myPatients">/WEB-INF/views/My/myPatients.jsp</result>
+		    <result name="myDone">/WEB-INF/views/My/myPatientsDone.jsp</result>
+		</action>
+		
+		<action name="DepartmentAction-*" class="DepartmentAction" method="{1}">
+			<result name="list">/WEB-INF/views/XZGL/ks.jsp</result>
+			<result type="stream" name="delete">
+		        <param name="contentType">text/html</param>
+		        <param name="inputName">inputStream</param>
+		    </result>
+			<result name="input">/WEB-INF/views/XZGL/ksAdd.jsp</result>
+   		 	<result name="success" type="redirectAction">DepartmentAction-list</result>
+   		 	<result name="ksinfo">/common/ksinfo.jsp</result>
+		</action>
+		<action name="HospitalAction-*" class="HospitalAction" method="{1}">
+			<result name="input">/WEB-INF/views/QTGL/yyjj.jsp</result>
+		</action>
+		<action name="WorkforceAction-*" class="WorkforceAction" method="{1}">
+			<result name="list">/WEB-INF/views/XZGL/yspb.jsp</result>
+			<result type="stream" name="delete">
+		        <param name="contentType">text/html</param>
+		        <param name="inputName">inputStream</param>
+		    </result>
+			<result name="input">/WEB-INF/views/XZGL/pbAdd.jsp</result>
+   		 	<result name="success" type="redirectAction">WorkforceAction-list</result>
+   		 	<result name="myWorkforce">/WEB-INF/views/My/myWorkforce.jsp</result>
+   		 	<result name="myinput" >/WEB-INF/views/My/pbAdd.jsp</result>
+   		 	<result name="mysuccess" type="redirectAction">WorkforceAction-myWorkforce</result>
+		</action>
+		<action name="PermissionAction-*" class="PermissionAction" method="{1}">
+			<result name="roleList">/WEB-INF/views/JSGL/js.jsp</result>
+		    <result name="roleInput">/WEB-INF/views/JSGL/jsAdd.jsp</result>
+		    <result name="roleList2" type="redirectAction">PermissionAction-roleManage</result>
+		    <result type="stream" name="delete">
+		        <param name="contentType">text/html</param>
+		        <param name="inputName">inputStream</param>
+		    </result>
+		    <result name="ysList">/WEB-INF/views/YHGL/ys.jsp</result>
+		    <result name="permit">/WEB-INF/views/JSGL/permit.jsp</result>
+		    <result name="permit2" type="redirectAction">PermissionAction-permitManage</result>
+		</action>
+	</package>
+	
+	<!-- 验证码 -->
+	<package name="Security" namespace="/Security" extends="struts-default">
+		<action name="SecurityCodeImageAction" class="com.hlzn.HRS.action.SecurityCodeImageAction">
+			<result name="success" type="stream">
+				<param name="contentType">image/jpeg</param>
+				<param name="inputName">imageStream</param>
+				<param name="bufferSize">2048</param>
+			</result>
+		</action>
+				
+	</package>
+</struts>

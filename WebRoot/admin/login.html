@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>后台登录</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../css/bootstrap-responsive.min.css" />
+        <link rel="stylesheet" href="../css/matrix-login.css" />
+        <link href="../font-awesome/css/font-awesome.css" rel="stylesheet" />
+        <style type="text/css">
+            input {
+                font-family: "Microsoft Yahei";
+            } .control-label {
+                color: #B2DFEE;
+                padding-left: 4px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="loginbox">
+            <div class="control-group normal_text">
+                <h2 style="color:#B2DFEE;font-size:28px;">**医院挂号预约信息管理系统平台</h2>
+                <span style="font-size:14px;color:gray;">版权所有 &copy;花了妆呢科技有限公司 2015-2018</span>
+            </div>
+            <form id="loginform" class="form-vertical" action="">
+                <div class="control-group">
+                    <label class="control-label">
+                        登陆账号
+                    </label>
+                    <div class="controls">
+                        <div class="main_input_box">
+                            <span class="add-on bg_lg"><i class="icon-user" style="font-size:16px;"></i></span>
+                            <input type="text" id="username" name="username" />
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group2">
+                    <label class="control-label">
+                        登陆密码
+                    </label>
+                    <div class="controls">
+                        <div class="main_input_box">
+                            <span class="add-on bg_ly"><i class="icon-lock" style="font-size:16px;"></i></span>
+                            <input type="password" id="password" name="password"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <span class="pull-left"><input type="reset" class="flip-link btn btn-info" value="重&nbsp;&nbsp;&nbsp;置">
+                        </input></span><span class="pull-right"><input type="button" id="LoginBtn" class="btn btn-success" style="width:335px;" value=" 登&nbsp;&nbsp;&nbsp;&nbsp;录"/></span>
+                </div>
+                <div class="control-group normal_text">
+                    <div style="font-size:14px;color:gray;">
+                        推荐使用webkit内核浏览器，如chrome等
+                    </div>
+                </div>
+                </div>
+            </form>
+            <form name="Loginform" action="DoctorAction-login" method="post">
+                <input type="hidden" name="doctorId" id="hidden_username"><input type="hidden" name="doctorPassword" id="hidden_password">
+            </form>
+            <script src="../js/jquery.min.js">
+            </script>
+            <script type="text/javascript">
+                function CheckCode(s) //有特殊字符为true  
+                {
+                    var containSpecial = RegExp(/[(\ )(\~)(\!)(\#)(\$)(\%)(\^)(\&)(\*)(\()(\))(\-)(\_)(\+)(\=)(\[)(\])(\{)(\})(\|)(\\)(\;)(\:)(\')(\")(\,)(\.)(\/)(\<)(\>)(\?)(\)]+/);
+                    return (containSpecial.test(s));
+                }
+                
+                $(function(){
+                    $("#LoginBtn").click(function(){
+                        var theform = document.Loginform;
+                        var username = document.getElementById("username");
+                        var password = document.getElementById("password");
+                        if (username.value == "") {
+                            alert("登录账号不能为空");
+                            
+                        }
+                        else 
+                            if (password.value == "") {
+                                alert("登录密码不能为空");
+                                
+                            }
+                            else 
+                            
+                                if (CheckCode(username.value) && CheckCode(password.value)) {
+                                    alert("有特殊字符请重新填写！");
+                                    username.value = "";
+                                    password.value = "";
+                                }
+                                else {
+                                    $.ajax({
+                                        url: "DoctorAction-loginCheck",
+                                        type: "post",
+                                        datatype: "text",
+                                        data: {
+                                            userName: $.trim($("input[id=username]").val()),
+                                            password: $.trim($("input[id=password]").val())
+                                        },
+                                        success: function(dataBack){
+                                            //alert(dataBack);
+                                            if (dataBack == "WrongName") {
+                                                alert("登录账号输入错误，请重新输入！");
+                                                username.value = "";
+                                                password.value = "";
+                                                document.getElementById("username").focus();
+                                            }
+                                            if (dataBack == "WrongPassword") {
+                                                alert("登录账密码输入错误，请重新输入！");
+                                                password.value = "";
+                                                document.getElementById("password").focus();
+                                            }
+                                            if(dataBack=="success"){
+                                                document.getElementById("hidden_username").value = username.value;
+                                                document.getElementById("hidden_password").value = password.value;
+                                                theform.submit();
+												
+                                            }
+                                        },
+                                        error: function(XMLHttpRequest, textStatus, errorThrown){
+                                            alert("XMLHttpRequest.status:" + XMLHttpRequest.status);
+                                            alert("XMLHttpRequest.readyState:" + XMLHttpRequest.readyState);
+                                            alert("textStatus:" + textStatus);
+                                            alert("请检查网络连接！");
+                                        }
+                                    });
+                                }
+                    });
+                });
+				
+            </script>
+            </body>
+        </html>

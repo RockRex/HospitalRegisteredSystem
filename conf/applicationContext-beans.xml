@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- 命名规范：id首字母大写，name首字母小写，name名与action类中的属性名一致 -->
+	<!-- Dao层的bean -->
+	<bean id="AppointmentDao" class="com.hlzn.HRS.dao.AppointmentDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="DepartmentDao" class="com.hlzn.HRS.dao.DepartmentDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="DoctorDao" class="com.hlzn.HRS.dao.DoctorDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="HospitalDao" class="com.hlzn.HRS.dao.HospitalDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="NoticeDao" class="com.hlzn.HRS.dao.NoticeDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="PatientDao" class="com.hlzn.HRS.dao.PatientDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="PermissionDao" class="com.hlzn.HRS.dao.PermissionDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="RolePermissionDao" class="com.hlzn.HRS.dao.RolePermissionDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="UserRoleDao" class="com.hlzn.HRS.dao.UserRoleDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="WorkforceDao" class="com.hlzn.HRS.dao.WorkforceDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="DoctorAction" class="com.hlzn.HRS.action.DoctorAction">
+		<property name="doctorService" ref="DoctorService"></property>
+		<property name="patientService" ref="PatientService"></property>
+		<property name="departmentService" ref="DepartmentService"></property>
+		<property name="workforceService" ref="WorkforceService"></property>
+		<property name="permissionService" ref="PermissionService"></property>
+	</bean>
+	<bean id="DoctorService" class="com.hlzn.HRS.service.DoctorService">
+		<property name="doctorDao" ref="DoctorDao"></property>
+	</bean>
+	<bean id="PatientAction" class="com.hlzn.HRS.action.PatientAction">
+		<property name="patientService" ref="PatientService"></property>
+		<property name="noticeService" ref="NoticeService"></property>
+		<property name="hospitalService" ref="HospitalService"></property>
+		<property name="doctorService" ref="DoctorService"></property>
+		<property name="departmentService" ref="DepartmentService"></property>
+		<property name="appointmentService" ref="AppointmentService"></property>
+		<property name="workforceService" ref="WorkforceService"></property>
+	</bean>
+	<bean id="PatientService" class="com.hlzn.HRS.service.PatientService">
+		<property name="patientDao" ref="PatientDao"></property>
+	</bean>
+	<bean id="NoticeService" class="com.hlzn.HRS.service.NoticeService">
+		<property name="noticeDao" ref="NoticeDao"></property>
+	</bean>
+	<bean id="NoticeAction" class="com.hlzn.HRS.action.NoticeAction">
+		<property name="noticeService" ref="NoticeService"></property>
+	</bean>
+	<bean id="HospitalService" class="com.hlzn.HRS.service.HospitalService">
+		<property name="hospitalDao" ref="HospitalDao"></property>
+	</bean>
+	<bean id="AppointmentAction" class="com.hlzn.HRS.action.AppointmentAction">
+		<property name="appointmentService" ref="AppointmentService"></property>
+		<property name="patientService" ref="PatientService"></property>
+		<property name="doctorService" ref="DoctorService"></property>
+		<property name="workforceService" ref="WorkforceService"></property>
+	</bean>
+	<bean id="AppointmentService" class="com.hlzn.HRS.service.AppointmentService">
+		<property name="appointmentDao" ref="AppointmentDao"></property>
+	</bean>
+	
+	<bean id="DepartmentService" class="com.hlzn.HRS.service.DepartmentService">
+		<property name="departmentDao" ref="DepartmentDao"></property>
+	</bean>
+	<bean id="DepartmentAction" class="com.hlzn.HRS.action.DepartmentAction">
+		<property name="departmentService" ref="DepartmentService"></property>
+		<property name="doctorService" ref="DoctorService"></property>
+		<property name="patientService" ref="PatientService"></property>
+	</bean>
+	<bean id="HospitalAction" class="com.hlzn.HRS.action.HospitalAction">
+		<property name="hospitalService" ref="HospitalService"></property>
+	</bean>
+	<bean id="WorkforceService" class="com.hlzn.HRS.service.WorkforceService">
+		<property name="workforceDao" ref="WorkforceDao"></property>
+	</bean>
+	<bean id="WorkforceAction" class="com.hlzn.HRS.action.WorkforceAction">
+		<property name="workforceService" ref="WorkforceService"></property>
+		<property name="doctorService" ref="DoctorService"></property>
+	</bean>
+	<bean name="PermissionAction" class="com.hlzn.HRS.action.PermissionAction">
+		<property name="permissionService" ref="PermissionService"></property>
+		<property name="doctorService" ref="DoctorService"></property>
+	</bean>
+	<bean name="PermissionService" class="com.hlzn.HRS.service.PermissionService">
+		<property name="permissionDao" ref="PermissionDao"></property>
+		<property name="userRoleDao" ref="UserRoleDao"></property>
+		<property name="rolePermissionDao" ref="RolePermissionDao"></property>
+	</bean>
+</beans>

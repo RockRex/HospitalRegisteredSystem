@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>医院挂号预约信息系统</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+    <link rel="stylesheet" href="css/matrix-style.css" />
+    <link rel="stylesheet" href="css/matrix-media.css" />
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+<script src="js/jquery.min.js"></script>
+<script type="text/jscript">
+	$(function(){
+            	var name = "";
+            	$.ajax({
+            		url : "DoctorAction-getName",
+            		type : "post",
+            		datatype : "text",
+            		success : function(data){
+            			name = data;
+						if(name=="null"||name==null)
+						{
+							alert("请您先登录！");
+							window.location.href="DoctorAction-quitSystem";
+						}
+            			$("#username").html("欢迎您， "+name);
+            		},
+            		error : function(XMLHttpRequest, textStatus, errorThrown){
+					alert("XMLHttpRequest.status:"+XMLHttpRequest.status);
+					alert("XMLHttpRequest.readyState:"+XMLHttpRequest.readyState);
+					alert("textStatus:"+textStatus);
+					alert("请检查网络连接！");
+					}	
+            	});
+            });
+</script>
+</head>
+<body>
+    <!--Header-part-->
+    <div id="header">
+      <h1><a href="#">信息管理系统平台</a></h1>
+    </div>
+    <!--close-Header-part--> 
+
+    <!--top-Header-menu-->
+    <div id="user-nav" class="navbar navbar-inverse">
+        <ul class="nav">
+            <li  class="dropdown" id="profile-messages" >
+                <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle">
+                    <i class="icon icon-user"></i>&nbsp;
+                    <span id="username" class="text"></span>
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#"><i class="icon-user"></i> 个人资料</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#"><i class="icon-check"></i> 我的任务</a></li>
+                    <li class="divider"></li>
+                    <li><a href="login.html"><i class="icon-key"></i> 退出系统</a></li>
+                </ul>
+            </li>
+            <li class=""><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span class="text">&nbsp;退出系统</span></a></li>
+        </ul>
+    </div>
+    <!--close-top-Header-menu-->
+
+    <!--start-top-serch-->
+    <div id="search">
+        <input type="text" placeholder="搜索..."/>
+        <button type="submit" class="tip-bottom" title="Search"><i class="icon-search icon-white"></i></button>
+    </div>
+    <!--close-top-serch-->
+
+    <!--sidebar-menu-->
+    <div id="sidebar" style="OVERFLOW-Y: auto; OVERFLOW-X:hidden;">
+        <ul>
+            <li class="submenu active">
+                <a class="menu_a" link="index2.html"><i class="icon icon-home"></i> <span>系统菜单</span></a> 
+            </li>
+            <li class="submenu"> 
+                <a href="#">
+                    <i class="icon icon-table"></i> 
+                    <span>前台管理</span> 
+                    <span class="label label-important">2</span>
+                </a>
+                <ul>
+                    <li><a class="menu_a" link="form-common.html"><i class="icon icon-caret-right"></i>医院简介</a></li>
+                    <li><a class="menu_a" link="form-validation.html"><i class="icon icon-caret-right"></i>新闻中心</a></li>
+                </ul>
+            </li>
+            <li class="submenu">
+				<a href="#">
+                    <i class="icon icon-th"></i> 
+                    <span>用户管理</span> 
+                    <span class="label label-important">2</span>
+                </a>
+				<ul>
+                    <li><a class="menu_a" link="buttons.html"><i class="icon icon-caret-right"></i>医生信息</a></li>
+					<li><a class="menu_a" link="buttons.html"><i class="icon icon-caret-right"></i>病人信息</a></li>
+                </ul>
+            </li>
+            <li class="submenu"> 
+                <a href="#">
+                    <i class="icon icon-stop"></i> 
+                    <span>行政管理</span> 
+                    <span class="label label-important">2</span>
+                </a>
+                <ul>
+                    <li><a class="menu_a" link="gallery.html"><i class="icon icon-caret-right"></i>科室管理</a></li>
+                    <li><a class="menu_a" link="grid.html"><i class="icon icon-caret-right"></i>医生排班</a></li>
+                </ul>
+            </li>
+            <li class="submenu"> 
+                <a href="#">
+                    <i class="icon icon-info-sign"></i> 
+                    <span>预约管理</span> 
+                    <span class="label label-important">2</span>
+                </a>
+                <ul>
+                    <li><a class="menu_a" link="error403.html"><i class="icon icon-caret-right"></i>病人预约</a></li>
+                    <li><a class="menu_a" link="error404.html"><i class="icon icon-caret-right"></i>历史预约</a></li>
+                </ul>
+            </li>
+			<li class="submenu"> 
+                <a href="#">
+                    <i class="icon icon-info-sign"></i> 
+                    <span>个人管理</span> 
+                    <span class="label label-important">4</span>
+                </a>
+                <ul>
+                    <li><a class="menu_a" link="error403.html"><i class="icon icon-caret-right"></i>个人信息</a></li>
+                    <li><a class="menu_a" link="error404.html"><i class="icon icon-caret-right"></i>预约病人</a></li>
+                    <li><a class="menu_a" link="error404.html"><i class="icon icon-caret-right"></i>预约完成</a></li>
+                    <li><a class="menu_a" link="error404.html"><i class="icon icon-caret-right"></i>我的排班</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <!--sidebar-menu-->
+
+    <!--main-container-part-->
+    <div id="content">
+        <!--breadcrumbs-->
+        <div id="content-header">
+          <div id="breadcrumb"> <a href="adminHome.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a></div>
+        </div>
+        <!--End-breadcrumbs-->
+        <iframe src="" id="iframe-main" frameborder='0' style="width:100%;"></iframe>
+    </div>
+    <!--end-main-container-part-->
+
+    <script src="js/excanvas.min.js"></script> 
+    <script src="js/jquery.min.js"></script> 
+    <script src="js/jquery.ui.custom.js"></script> 
+    <script src="js/bootstrap.min.js"></script> 
+    <script src="js/nicescroll/jquery.nicescroll.min.js"></script> 
+    <script src="js/matrix.js"></script> 
+
+
+    <script type="text/javascript">
+
+    //初始化相关元素高度
+    function init(){
+        $("body").height($(window).height()-80);
+        $("#iframe-main").height($(window).height()-90);
+        $("#sidebar").height($(window).height()-50);
+    }
+
+    $(function(){
+        init();
+        $(window).resize(function(){
+            init();
+        });
+    });
+
+    // This function is called from the pop-up menus to transfer to
+    // a different page. Ignore if the value returned is a null string:
+    function goPage (newURL) {
+        // if url is empty, skip the menu dividers and reset the menu selection to default
+        if (newURL != "") {
+            // if url is "-", it is this page -- reset the menu:
+            if (newURL == "-" ) {
+                resetMenu();            
+            } 
+            // else, send page to designated URL            
+            else {  
+                document.location.href = newURL;
+            }
+        }
+    }
+
+    // resets the menu selection upon entry to this page:
+    function resetMenu() {
+        document.gomenu.selector.selectedIndex = 2;
+    }
+
+    // uniform使用示例：
+    // $.uniform.update($(this).attr("checked", true));
+    </script>
+</body>
+</html>
